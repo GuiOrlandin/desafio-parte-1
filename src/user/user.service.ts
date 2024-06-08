@@ -15,8 +15,6 @@ export class UsersService {
     @InjectModel(ProductSchema.name) private productModel: Model<ProductSchema>,
   ) {}
   async create(createUserDto: UserDto): Promise<User> {
-    console.log('oi');
-
     const hashedPassword = await hash(createUserDto.password, 10);
 
     const user = new this.userModel({
@@ -47,6 +45,15 @@ export class UsersService {
     if (!isPasswordMatched) {
       throw new UnauthorizedException();
     }
+
+    return user;
+  }
+
+  async findOneTest(email: string): Promise<User> {
+    const user = await this.userModel
+      .findOne<UserDocument>({ email: email })
+      .populate('products', '', this.productModel)
+      .exec();
 
     return user;
   }

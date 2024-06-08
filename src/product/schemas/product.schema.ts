@@ -1,25 +1,29 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 import { Product } from '../entities/product';
+import { UserSchema } from 'src/user/schemas/user.schema';
 
 export type ProductsDocument = HydratedDocument<ProductSchema>;
 
 @Schema({ collection: 'products', timestamps: true })
 export class ProductSchema implements Product {
   @Prop({ required: true })
-  descrição: string;
+  description: string;
 
   @Prop({ required: true })
-  nome: string;
+  name: string;
 
   @Prop({ required: true })
-  preço: number;
+  price: number;
 
   @Prop({ required: true })
-  categoria: string;
+  category: string;
 
   @Prop({ required: true })
-  estoque: boolean;
+  stock: number;
+
+  @Prop({ type: Types.ObjectId, ref: 'UserSchema', required: true })
+  user: UserSchema;
 }
 
 export const ProductSchemaFactory = SchemaFactory.createForClass(ProductSchema);

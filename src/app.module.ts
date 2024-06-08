@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { AppService } from './app.service';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/auth.guard';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { AuthGuard } from './auth/auth.guard';
       'mongodb+srv://guilherme:bB6YRPT8a1ibYsGl@desafio1.s16ieyd.mongodb.net/',
     ),
     UsersModule,
+    ProductModule,
     AuthModule,
   ],
   controllers: [AppController],

@@ -1,7 +1,7 @@
 export class Product {
-  descrição: string;
-  nome: string;
-  preço: number;
-  categoria: string;
-  estoque: boolean;
+  description: string;
+  name: string;
+  price: number;
+  category: string;
+  stock: number;
 }

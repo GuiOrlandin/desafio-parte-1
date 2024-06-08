@@ -23,6 +23,11 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @Get(':email')
+  findOne(@Param('email') email: string) {
+    return this.usersService.findOneTest(email);
+  }
+
   @Patch(':email')
   update(@Param('email') email: string, @Body() updateUserDto: UserDto) {
     return this.usersService.update(email, updateUserDto);

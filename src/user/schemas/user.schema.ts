@@ -9,13 +9,17 @@ export type UserDocument = HydratedDocument<UserSchema>;
 export class UserSchema implements User {
   @Prop()
   name: string;
+
   @Prop()
   email: string;
+
   @Prop()
   password: string;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'products' }] })
-  products?: Array<ProductSchema>;
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProductSchema' }],
+  })
+  products?: ProductSchema[];
 }
 
 export const UserSchemaFactory = SchemaFactory.createForClass(UserSchema);
