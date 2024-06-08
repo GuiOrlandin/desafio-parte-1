@@ -1,5 +1,5 @@
 import { HttpStatus } from '@nestjs/common';
-import { AppException } from 'src/exceptions/appExceptions';
+import { AppException } from '../../exceptions/appException';
 
 export class UserNotAuthorizedException extends AppException {
   constructor() {

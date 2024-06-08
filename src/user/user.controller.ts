@@ -10,7 +10,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from './user.service';
-import { Public } from 'src/auth/decorators/constants';
+import { Public } from '../auth/decorators/constants';
 import { UserDto } from './dto/userDto';
 
 @Controller('users')
@@ -24,13 +24,8 @@ export class UsersController {
   }
 
   @Get(':email')
-  findOne(@Param('email') email: string) {
-    return this.usersService.findOneTest(email);
-  }
-
-  @Patch(':email')
-  update(@Param('email') email: string, @Body() updateUserDto: UserDto) {
-    return this.usersService.update(email, updateUserDto);
+  findOneByEmail(@Param('email') email: string) {
+    return this.usersService.findOneByEmail(email);
   }
 
   @Delete(':email')

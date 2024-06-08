@@ -1,13 +1,13 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { UserDocument, UserSchema } from './schemas/user.schema';
-import { ProductSchema } from 'src/product/schemas/product.schema';
 import { UserDto } from './dto/userDto';
 import { User } from './entities/user';
 import { compare, hash } from 'bcrypt';
 import { UserNotAuthorizedException } from './exception/userNotAuthorizedException';
+import { ProductSchema } from '../product/schemas/product.schema';
 
 @Injectable()
 export class UsersService {
@@ -50,22 +50,13 @@ export class UsersService {
     return user;
   }
 
-  async findOneTest(email: string): Promise<User> {
+  async findOneByEmail(email: string): Promise<User> {
     const user = await this.userModel
       .findOne<UserDocument>({ email: email })
       .populate('products', '', this.productModel)
       .exec();
 
     return user;
-  }
-
-  async update(email: string, updateUserDto: UserDto): Promise<boolean> {
-    const updatedUser = await this.userModel
-      .findOneAndUpdate({ email: email }, updateUserDto)
-      .exec();
-    if (!updatedUser) return false;
-    await updatedUser.save();
-    return true;
   }
 
   async remove(email: string): Promise<boolean> {
