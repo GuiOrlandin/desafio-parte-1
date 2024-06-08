@@ -7,6 +7,7 @@ import { ProductSchema } from 'src/product/schemas/product.schema';
 import { UserDto } from './dto/userDto';
 import { User } from './entities/user';
 import { compare, hash } from 'bcrypt';
+import { UserNotAuthorizedException } from './exception/userNotAuthorizedException';
 
 @Injectable()
 export class UsersService {
@@ -43,7 +44,7 @@ export class UsersService {
     const isPasswordMatched = await compare(password, user.password);
 
     if (!isPasswordMatched) {
-      throw new UnauthorizedException();
+      throw new UserNotAuthorizedException();
     }
 
     return user;

@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -13,6 +9,8 @@ import {
 import { ProductDto } from './dto/productDto';
 import { Product } from './entities/product';
 import { UserDocument, UserSchema } from 'src/user/schemas/user.schema';
+import { ProductNotFoundException } from './exceptions/productNotFoundException';
+import { UserNotAuthorizedException } from '../user/exception/userNotAuthorizedException';
 
 @Injectable()
 export class ProductService {
@@ -60,7 +58,7 @@ export class ProductService {
     const user = await this.userModel.findOne({ user: userId }).exec();
 
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UserNotAuthorizedException();
     }
 
     const updatedProduct = await this.productModel
@@ -68,7 +66,7 @@ export class ProductService {
       .exec();
 
     if (!updatedProduct) {
-      throw new NotFoundException();
+      throw new ProductNotFoundException();
     }
 
     await updatedProduct.save();
@@ -79,7 +77,7 @@ export class ProductService {
     const user = await this.userModel.findOne({ user: userId }).exec();
 
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UserNotAuthorizedException();
     }
 
     const ProductToBeDeleted = await this.productModel
@@ -87,7 +85,7 @@ export class ProductService {
       .exec();
 
     if (!ProductToBeDeleted) {
-      throw new NotFoundException();
+      throw new ProductNotFoundException();
     }
 
     return true;
