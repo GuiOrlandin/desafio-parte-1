@@ -14,7 +14,7 @@ import {
 import { ProductService } from './product.service';
 import { ProductDto } from './dto/productDto';
 import { AuthGuard } from '../auth/auth.guard';
-import { Public } from 'src/auth/decorators/constants';
+import { Public } from '../auth/decorators/constants';
 
 @Controller('products')
 export class ProductsController {

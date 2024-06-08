@@ -5,10 +5,10 @@ import { Model } from 'mongoose';
 import {
   ProductSchema,
   ProductsDocument,
-} from 'src/product/schemas/product.schema';
+} from '../product/schemas/product.schema';
 import { ProductDto } from './dto/productDto';
 import { Product } from './entities/product';
-import { UserDocument, UserSchema } from 'src/user/schemas/user.schema';
+import { UserDocument, UserSchema } from '../user/schemas/user.schema';
 import { ProductNotFoundException } from './exceptions/productNotFoundException';
 import { UserNotAuthorizedException } from '../user/exception/userNotAuthorizedException';
 
