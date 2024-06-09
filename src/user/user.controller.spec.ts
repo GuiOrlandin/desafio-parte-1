@@ -30,7 +30,6 @@ describe('UsersController', () => {
   describe('create', () => {
     it('should create a user', async () => {
       const userDto: UserDto = {
-        name: 'John Doe',
         email: 'john.doe@example.com',
         password: '123456',
       };

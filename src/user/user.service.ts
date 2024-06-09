@@ -8,6 +8,7 @@ import { User } from './entities/user';
 import { compare, hash } from 'bcrypt';
 import { UserNotAuthorizedException } from './exception/userNotAuthorizedException';
 import { ProductSchema } from '../product/schemas/product.schema';
+import { EmailAlreadyInUseException } from './exception/emailAlreadyInUse';
 
 @Injectable()
 export class UsersService {
@@ -18,6 +19,14 @@ export class UsersService {
   async create(createUserDto: UserDto): Promise<User> {
     const hashedPassword = await hash(createUserDto.password, 10);
 
+    const userAlreadyRegistered = await this.userModel
+      .findOne<UserDocument>({ email: createUserDto.email })
+      .populate('products', '', this.productModel)
+      .exec();
+
+    if (userAlreadyRegistered) {
+      throw new EmailAlreadyInUseException();
+    }
     const user = new this.userModel({
       email: createUserDto.email,
       password: hashedPassword,
