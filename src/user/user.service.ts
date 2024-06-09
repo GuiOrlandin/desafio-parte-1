@@ -20,7 +20,6 @@ export class UsersService {
 
     const user = new this.userModel({
       email: createUserDto.email,
-      name: createUserDto.name,
       password: hashedPassword,
       products: createUserDto.products || [],
     });
