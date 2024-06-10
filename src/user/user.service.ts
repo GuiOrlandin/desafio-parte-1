@@ -61,6 +61,7 @@ export class UsersService {
   async findOneByEmail(email: string): Promise<User> {
     const user = await this.userModel
       .findOne<UserDocument>({ email: email })
+      .select('-password')
       .populate('products', '', this.productModel)
       .exec();
 
