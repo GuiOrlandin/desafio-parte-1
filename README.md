@@ -19,3 +19,9 @@ npm run start:dev
 ```sh
 npm run test
 ```
+
+### Rode o relatório de cobertura de testes
+
+```sh
+npm run test:cov
+```
